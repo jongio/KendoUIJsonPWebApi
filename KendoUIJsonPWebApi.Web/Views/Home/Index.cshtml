@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<link href="~/Content/kendo/2013.1.319/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.319/kendo.default.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.319/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.319/kendo.web.min.js"></script>
+
+<div id="treeview" class="demo-section"></div>
+
+<script>
+    //var serviceRoot = "http://demos.kendoui.com/service";
+    var serviceRoot = "api";
+    
+    homogeneous = new kendo.data.HierarchicalDataSource({
+        transport: {
+            read: {
+                url: serviceRoot + "/Employees",
+                dataType: "jsonp"
+            }
+        },
+        schema: {
+            model: {
+                id: "EmployeeId",
+                hasChildren: "HasEmployees"
+            }
+        }
+    });
+
+    $("#treeview").kendoTreeView({
+        dataSource: homogeneous,
+        dataTextField: "FullName"
+    });
+</script>
+
+
+
